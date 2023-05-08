@@ -13,12 +13,12 @@ const adapter = new JSONFile(dbFile);
 const db: any = new Low(adapter, { defaultValue: { posts: [], user: {} } });
 await db.read();
 
-const _jobs: Job[] = JSON.parse(
-  fs.readFileSync("./src/data/jobs.json", "utf8")
-);
-const skillInfos: any = JSON.parse(
-  fs.readFileSync("./src/data/skillInfos.json", "utf8")
-);
+// const _jobs: Job[] = JSON.parse(
+//   fs.readFileSync("./src/data/jobs.json", "utf8")
+// );
+// const skillInfos: any = JSON.parse(
+//   fs.readFileSync("./src/data/skillInfos.json", "utf8")
+// );
 
 export const getApiInstructionsHtml = () => {
   return `
@@ -39,6 +39,7 @@ a, h1 {
 
 export const getJobs = (): Job[] => {
   const jobs: Job[] = [];
+  const _jobs: Job[] = db.data.jobs;
   _jobs.forEach((_job) => {
     const job = {
       ..._job,
@@ -50,7 +51,8 @@ export const getJobs = (): Job[] => {
 };
 
 export const getTodos = (): Todo[] => {
-  return _jobs.map((job: Job) => {
+  const _jobs: Job[] = db.data.jobs;
+  return _jobs.map((job) => {
     return {
       todoText: job.todo,
       company: job.company,
@@ -62,7 +64,7 @@ export const getTodos = (): Todo[] => {
 
 export const getTotaledSkills = () => {
   const totaledSkills: TotaledSkill[] = [];
-  model.getJobs().forEach((job) => {
+  getJobs().forEach((job) => {
     job.skills.forEach((skill) => {
       const existingTotaledSkill = totaledSkills.find(
         (totaledSkill) => totaledSkill.skill.idCode === skill.idCode
@@ -91,7 +93,8 @@ export const getSkillsWithList = (skillList: string) => {
 };
 
 export const lookupSkill = (idCode: string): Skill => {
-  const _skill = skillInfos[idCode];
+  const _skillInfos = db.data.skillInfos;
+  const _skill = _skillInfos[idCode];
   if (_skill === undefined) {
     return {
       ...nullObjectSkill,
@@ -105,7 +108,7 @@ export const lookupSkill = (idCode: string): Skill => {
   }
 };
 
-export const getTest = () => {
-  //   return "Test from Server";
-  return db.data.test;
-};
+// export const getTest = () => {
+//   //   return "Test from Server";
+//   return db.data.test;
+// };
