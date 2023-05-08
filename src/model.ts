@@ -1,6 +1,10 @@
 import fs from "fs";
 import * as model from "./model.js";
 import { Job, Skill, nullObjectSkill, TotaledSkill, Todo } from "./types.js";
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url'
+import { Low } from 'lowdb';
+import { JSONFile } from 'lowdb/node';
 
 const _jobs: Job[] = JSON.parse(
   fs.readFileSync("./src/data/jobs.json", "utf8")
