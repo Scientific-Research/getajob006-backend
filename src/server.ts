@@ -23,7 +23,8 @@ app.get("/totaledSkills", (req: express.Request, res: express.Response) => {
 });
 
 app.get("/test", (req: express.Request, res: express.Response) => {
-  res.send("Test from Server");
+  //   res.send("Test from Server");
+  res.json(model.getTest());
 });
 
 app.listen(port, () => {
