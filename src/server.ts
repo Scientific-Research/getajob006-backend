@@ -36,7 +36,7 @@ app.delete("/jobs/:id", async (req: express.Request, res: express.Response) => {
       message: `job with id ${id} does not exist, deletion failed`,
     });
   } else {
-    res.send("The job with id " + id + " Deleted!");
+    // res.send("The job with id " + id + " Deleted!");
     res.status(200).json(deletedObject);
   }
   // const nextId = id + 1;
