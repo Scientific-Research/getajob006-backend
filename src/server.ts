@@ -29,8 +29,16 @@ app.get("/totaledSkills", (req: express.Request, res: express.Response) => {
 
 app.delete("/jobs/:id", async (req: express.Request, res: express.Response) => {
   const id = Number(req.params.id);
-  await model.deleteJob(id);
-  res.send("Deleted!");
+  const deletedObject = await model.deleteJob(id);
+  if (deletedObject === undefined) {
+    res.status(409).send({
+      error: true,
+      message: `job with id ${id} does not exist, deletion failed`,
+    });
+  } else {
+    res.send("The job with id " + id + " Deleted!");
+    res.status(200).json(deletedObject);
+  }
   // const nextId = id + 1;
   // res.send(`will delete the Job with id: ${id} and the next Id is ${nextId}`);
 });
