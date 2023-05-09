@@ -108,6 +108,13 @@ export const lookupSkill = (idCode: string): Skill => {
   }
 };
 
+export const deleteJob = async (id: number) => {
+  const deletedObject = db.data.jobs.find((m: Job) => m.id === id);
+  db.data.jobs = db.data.jobs.filter((m: Job) => m.id !== id);
+  await db.write();
+  return deletedObject;
+};
+
 // export const getTest = () => {
 //   //   return "Test from Server";
 //   return db.data.test;
