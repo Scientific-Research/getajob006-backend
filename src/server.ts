@@ -27,9 +27,9 @@ app.get("/totaledSkills", (req: express.Request, res: express.Response) => {
 //   res.json(model.getTest());
 // });
 
-app.delete("/jobs/:id", (req: express.Request, res: express.Response) => {
+app.delete("/jobs/:id", async (req: express.Request, res: express.Response) => {
   const id = Number(req.params.id);
-  model.deleteJob(id);
+  await model.deleteJob(id);
   res.send("Deleted!");
   // const nextId = id + 1;
   // res.send(`will delete the Job with id: ${id} and the next Id is ${nextId}`);
