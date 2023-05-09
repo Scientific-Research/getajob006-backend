@@ -28,8 +28,9 @@ app.get("/totaledSkills", (req: express.Request, res: express.Response) => {
 // });
 
 app.delete("/jobs/:id", (req: express.Request, res: express.Response) => {
-  const id = req.params.id;
-  res.send(`will delete the Job ${id}`);
+  const id = Number(req.params.id);
+  const nextId = id + 1;
+  res.send(`will delete the Job with id: ${id} and the next Id is ${nextId}`);
 });
 
 app.listen(port, () => {
